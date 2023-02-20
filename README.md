@@ -47,6 +47,4 @@ Activate it (run this each time you switch projects):
 Using the model
 ===============
 
-To obtain model results, simply execute the each script sequentially.
-
-Using the R scripts in the infrasharing5Gupgrade/vis folder, the results can be visualized.
+To obtain model results, simply execute the each script sequentially. The obtained results can be plotted on R using the code in "vis" folder.
