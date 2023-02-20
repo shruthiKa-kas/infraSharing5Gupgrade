@@ -12,6 +12,7 @@ Citation
 
 - Koratagere Anantha Kumar, S. and Oughton, E., 2022. Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural Areas.(doi:https://dx.doi.org/10.36227/techrxiv.21258531.v1)
 
+- Koratagere Anantha Kumar, S. and Oughton, E., 2022. Infrastructure Sharing Strategies for Wireless Broadband
 
 Method
 ======
