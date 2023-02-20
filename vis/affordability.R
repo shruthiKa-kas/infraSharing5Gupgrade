@@ -1,10 +1,7 @@
 library(readr)
-# install.packages("dplyr")
 library(dplyr)
-# install.packages("ggplot2")
 library(ggplot2)
 library(grid)
-# # install.packages("devtools")
 
 folder <- dirname(rstudioapi::getSourceEditorContext()$path)
 folder <- c("/cloud/project")
@@ -20,7 +17,6 @@ data$Type <- factor(data$Type,
 )
 
 glimpse(data)
-#data <- order(factor$Distancekm)
 
 
 fig = ggplot(data, aes(x=Subscribers, y=ARPU, group=Type, color=Type)) + 
@@ -41,13 +37,10 @@ fig = ggplot(data, aes(x=Subscribers, y=ARPU, group=Type, color=Type)) +
   guides(linetype = guide_legend(reverse = FALSE), 
          color = guide_legend(reverse = FALSE), 
          size = guide_legend(reverse = FALSE)) 
-#+
-#  facet_wrap(~Scenario,  ncol = 2)  +theme(text=element_text(size=12))
-fig
-##create folder
-#create folder
-dir.create(file.path(folder, 'figures'), showWarnings = FALSE) #creates a folder called figures if it doesn't already exist
-path = file.path(folder, 'figures', 'affordarpu.png') #set the path to export the image to
-png(path, units="in", width=8, height=5, res=300) #set up the .tiff in terms of width/height and resolution
-print(fig) #print the figigure to the .tiff
-dev.off() #end the operation
+
+
+dir.create(file.path(folder, 'figures'), showWarnings = FALSE) 
+path = file.path(folder, 'figures', 'affordarpu.png') 
+png(path, units="in", width=8, height=5, res=300) 
+print(fig) 
+dev.off()
