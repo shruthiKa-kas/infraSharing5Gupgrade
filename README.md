@@ -12,8 +12,6 @@ Citation
 
 - Koratagere Anantha Kumar, S. and Oughton, E., 2022. Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural Areas.(https://www.techrxiv.org/articles/preprint/Techno-Economic_Assessment_of_5G_Infrastructure_Sharing_Business_Models_in_Rural_Areas/21258531/1/files/37740480.pdf)
 
-Importantly, I provide all code (and required data inputs) so that the results can be reproduced.
-Both unit tests and integration tests are provided with the codebase to ensure reliability.
 
 Method
 ======
