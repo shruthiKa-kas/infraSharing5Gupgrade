@@ -11,21 +11,13 @@ import pandas as pd
 import json
 import os
 import csv
-#import numpy_financial as npf
-# from ipynb.fs.full.TEAmodel import TowerRequired
 
-# import TowerRequired
-# from ipynb.fs.full.my_functions import factorial
 params = {
-    # 'existing_towers_SC': 10,
-    # 'existing_towers_MC': 4,
     'Core_cost_percentage':0.1,
     'backhaul_MC': 10000,
     'backhaul_SC_m': 5,
     'tower': 1000,
-    #opex is usally 10% of overall CAPEX for each year for macro-cell
     'OPEX_rental': 0.1,
-    #opex for small cells
     'opex_small':800,
     'SiteRental_rural_macro': 1000,
     'siteRental_rural_small': 200,
@@ -36,13 +28,11 @@ params = {
     'IO_fronthaul': 1500,
     'Remote_radio_units':3500,
     'processing':1500,
-    # 'population':18000,
     'debt':0.05,
     'CAPEX_rateofChange': -0.03,
     'OPEX_rateofChange': 0.05,
     'Badloans_rateofChange': 0.02,
     'Customer_growth_rate': 0.04,
-    #spectrum
     'bandwidth_700Mhz': 10,
     'bandwidth_3800MHz':100,
     'cost_spectrum_700_USD': 0.28,
@@ -50,9 +40,6 @@ params = {
     'existing_site_density_per_km2': 0.02,
     'coverage_area_km2': 500,
     'population_density':36,
-    # 'cell_radius_MC':6,
-    # 'cell_radius_SC':3.5,
-    # 'contention':10,
     'backhaul_capacity_Gbps': 5,
     'demand_gb_month': 50,  
     'adoption_rate_perc': 0.5,
@@ -80,13 +67,14 @@ sensitivityparams = {
 
 def NPVEstimate(params,sensitivityparams,parameter,j):
     """
-    Existing site, backhaul exist, just enhance the capacity., small cell around the macro-cell.. say 2 km from base station
+    Estimate the cost and NPV for different scenarios in the sentivity analysis
     
     """
     
     population_density = int(params['population_density'])
-    
+    '''    
     #initialise params
+    '''
     cost_spectrum_700_USD = float(params['cost_spectrum_700_USD'])
     cost_spectrum_3800_USD = float(params['cost_spectrum_3800_USD'])
     bandwidth_700Mhz = float(params['bandwidth_700Mhz']);
@@ -109,8 +97,6 @@ def NPVEstimate(params,sensitivityparams,parameter,j):
     siteRental_rural_macro = float(params['SiteRental_rural_macro'])
     siteRental_rural_small = float(params['siteRental_rural_small'])
     
-    # population = float(params['population'])
-    
     OPEX_rental = params['OPEX_rental']
     opex_small = float(params['opex_small'])
     
@@ -125,7 +111,9 @@ def NPVEstimate(params,sensitivityparams,parameter,j):
     discount_rate = float(params['discount_rate'])
     oldTakeup = float(params['adoption_rate_perc'])
     
+    '''
     #initialise senstiviyparams
+    '''
     CAPEX_factor = float(sensitivityparams['CAPEX_factor']);
     OPEX_factor = float(sensitivityparams['OPEX_factor']);
     Population_factor = float(sensitivityparams['Population_factor']);
@@ -137,10 +125,14 @@ def NPVEstimate(params,sensitivityparams,parameter,j):
     Demand_factor = float(sensitivityparams['Demand_factor']);
     
     
-    #maincalculations
+    '''
+    maincalculations
+    
+    These equations estimate 
+    '''
     year = np.array([2023,2024,2025,2026,2027,2028,2029,2030,2031,2032])
     filename = "Overall_cellrequired_macro_small.csv"
-    my_path = os.path.join('results/Capacity', filename)
+    my_path = os.path.join('data/Capacity', filename)
     df = pd.read_csv(my_path)
     arr = df.to_numpy()
     index = np.where(arr == population_density)
@@ -162,9 +154,6 @@ def NPVEstimate(params,sensitivityparams,parameter,j):
     year = np.array([2023,2024,2025,2026,2027,2028,2029,2030,2031,2032])
     
     Badloans_rateofChange = np.power((1+Badloans_rateofChange*Debt_payment_factor),(year-2023))
-
-    # population_density = float(NPVparams['population_density'])
-   
     population = Population_factor*population_density*area_covered
     initialSubscribers = oldTakeup*population
     upgradeSubscriber = 0.3*initialSubscribers;
@@ -229,9 +218,7 @@ def NPVEstimate(params,sensitivityparams,parameter,j):
         Badloans = TCO*Badloans_rateofChange
         TCO_plus_badloans = TCO + Badloans
         
-        # arr = df.to_numpy()
         cashflow = np.subtract(totalrevenueperYear,TCO_plus_badloans)
-        # NPVeachYear 
         output['NPV'] = np.round(np.sum(np.divide(cashflow,discount_rate)))
         return output
     df = pd.DataFrame()   
@@ -242,27 +229,8 @@ def NPVEstimate(params,sensitivityparams,parameter,j):
         df1 = df1.append(df)
     
     return df1
-        # filename = "cost_change_{}_{}_{}.csv".format(
-        #     existing_towers_MC, 
-        #     existing_towers_SC,
-        #     type,
-        #     change,
-        #     parameter,
-        # )
-        # np.savetxt(filename, a,  fmt="%s", delimiter = ",")
-        # names = 
-        
-        # if not os.path.exists('results/Sensitivity/NPV'):
-        #     os.mkdir('results/Sensitivity/NPV')
-        # my_path = os.path.join('results/Sensitivity/NPV', filename)
-        # output.to_csv(my_path)
-        
-   
-    
+
             
-# for x in thisdict.keys():
-#   print(x)
-#   print(thisdict.get(x))
 final = pd.DataFrame()
 for i in sensitivityparams.keys():
     parameter = i
@@ -270,22 +238,12 @@ for i in sensitivityparams.keys():
     for j in change:
         oldValue = sensitivityparams.get(i)
         sensitivityparams[i] = (1+j)
-        # print(sensitivityparams.get(i))
         a = NPVEstimate(params,sensitivityparams,parameter,j)
         final = final.append(a)
-        #reset back to original value
         sensitivityparams[i] = oldValue
 
 filename = "sensitivityAnalysis.csv"
-if not os.path.exists('results/Sensitivity'):
-    os.mkdir('results/Sensitivity')
-my_path = os.path.join('results/Sensitivity', filename)
+if not os.path.exists('data/Sensitivity'):
+    os.mkdir('data/Sensitivity')
+my_path = os.path.join('data/Sensitivity', filename)
 final.to_csv(my_path)
-
-
-
-# In[ ]:
-
-
-
-
