@@ -21,7 +21,7 @@ A box diagram of the method is shown below, illustrating the open-source techno-
 
 Example Results
 ===============
-A visualization of the cost per smartphone connected is shown below for 5G universal broadband strategies, demonstrating the type of results the codebase can produce.
+The results shows the NPV for a revenue variation scenario
 <p align="center">
   <img src="/figures/results.png" />
 </p>
