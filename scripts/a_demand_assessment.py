@@ -17,34 +17,42 @@ import pandas as pd
 import os
 from pathlib import Path
 
-Demandparams = {
+demandparams = {
     'demand_gb_month': 50,  
     'adoption_rate_perc': 0.5,
     'area_covered': 500,
 }
 
 
-def demand(Demandparams):
-"""
-This function estimates the minimum data rate per user required during peak hours to keep the QoE (quality of experience) per user higher. 
-Data traffic demand is estimated by determining market share, anticipated smartphone users or other business subscribers, population distribution,
-active users exchanging traffic at peak times, the amount of traffic per user and the amount of traffic per site.
+def demand(demandparams):
+    """
+    This function estimates the minimum data rate per user required during peak hours to keep the QoE (quality of experience)
+    per user higher. 
+    Data traffic demand is estimated by determining market share, anticipated smartphone users or other business subscribers,
+    population distribution, active users exchanging traffic at peak times, the amount of traffic per user and the amount of 
+    traffic per site.
 
+    inputs
 
+        demandperMonth_GB (float): data usage per month of consumer eMBB application
+        takeuprate (float): expected network uptake by the consumers in comparison to the total population 
+        area_covered_km2 (float): size of the study are in km2
+
+    output
+
+        minimum_speed_required_users_Mbps_perkm2 (float): minimum speed per user during peak hours 
+
+    """
+    demandperMonth_GB = float(demandparams['demand_gb_month'])
+    takeuprate = float(demandparams['adoption_rate_perc'])
+    area_covered_km2 = float(demandparams['area_covered'])
     
-"""
-    DemandperMonth_GB = float(Demandparams['demand_gb_month'])
-    #print(DemandperMonth_GB)
-    takeuprate = float(Demandparams['adoption_rate_perc'])
-    #print(takeuprate)
-    AreaCovered_km2 = float(Demandparams['area_covered'])
     
-    
-    MBperDay_MB = DemandperMonth_GB*math.pow(10,3)/12;
-    BusisestHour = 0.15; #overhead booking factor 
-    MBperBusyHour_MBphour = MBperDay_MB*BusisestHour;
-    MinimumMbpsPerUser_Mbps = MBperBusyHour_MBphour*8/3600; #1 byte = 8 bits and 1 hour = 3600 seconds
-    MinimumMbpsPerUser_Mbps = round(MinimumMbpsPerUser_Mbps,2)
+    MBperDay_MB = demandperMonth_GB*math.pow(10,3)/12;
+    busisest_hour = 0.15; #overhead booking factor 
+    MBperBusyHour_MBphour = MBperDay_MB*busisest_hour;
+    minimumMbps_peruser_Mbps = MBperBusyHour_MBphour*8/3600; #1 byte = 8 bits and 1 hour = 3600 seconds
+    minimumMbps_peruser_Mbps = round(minimumMbps_peruser_Mbps,2)
 
     
     randomlist = []
@@ -53,45 +61,34 @@ active users exchanging traffic at peak times, the amount of traffic per user an
         randomlist.append(Rc) 
 
     output = []
-    for RuralPopDensity in range(18,300,18):
-        Totalpopulation = AreaCovered_km2*RuralPopDensity;
-        TotalUsers = Totalpopulation*takeuprate;
-        MinimumSpeedRequiredfortheUsers_Mbps_perkm2 = MinimumMbpsPerUser_Mbps*TotalUsers/AreaCovered_km2;
-        MinimumSpeedRequiredfortheUsers_Mbps_perkm2 = round(MinimumSpeedRequiredfortheUsers_Mbps_perkm2,0)
+    for rural_pop_density in range(18,300,18):
+        total_population = area_covered_km2*rural_pop_density;
+        total_users = total_population*takeuprate;
+        minimum_speed_required_users_Mbps_perkm2 = minimumMbps_peruser_Mbps*total_users/area_covered_km2;
+        minimum_speed_required_users_Mbps_perkm2 = round(minimum_speed_required_users_Mbps_perkm2,0)
         output.append({
             'iterations': _,
-            'PopulationDensity': RuralPopDensity,
-            'Totalpopulation': Totalpopulation,
-            'TotalUsers_existing': TotalUsers,
-            'demand_gb_month': DemandperMonth_GB,
+            'PopulationDensity': rural_pop_density,
+            'Totalpopulation': total_population,
+            'total_users_existing': total_users,
+            'demand_gb_month': demandperMonth_GB,
             'adoption_rate_perc':takeuprate,
-            'MinimumMbpsPerUser': MinimumMbpsPerUser_Mbps,
-            'RequiredDataThroughput': MinimumSpeedRequiredfortheUsers_Mbps_perkm2,
+            'MinimumMbpsPerUser': minimumMbps_peruser_Mbps,
+            'RequiredDataThroughput': minimum_speed_required_users_Mbps_perkm2,
         })
 
     output = pd.DataFrame(output)
     
     filename = "Peakhour_demand_{}_{}_{}.csv".format(
-        Demandparams['demand_gb_month'], 
-        Demandparams['adoption_rate_perc'], 
-        Demandparams['area_covered'],
+        demandparams['demand_gb_month'], 
+        demandparams['adoption_rate_perc'], 
+        demandparams['area_covered'],
     )
     print(filename)
-    if not os.path.exists('results/DemandPeakHours'):
-            os.mkdir('results/DemandPeakHours')
-    my_path = os.path.join('results/DemandPeakHours/', filename)
+    if not os.path.exists('data/demand_assess'):
+            os.mkdir('data/demand_assess')
+    my_path = os.path.join('data/demand_assess/', filename)
     print(my_path)
     output.to_csv(my_path)
 
-demand(Demandparams)
-# my_path = os.path.join('results/Capacity', filename)
-
-
-# In[2]:
-
-
-
-# import os
- 
-# print("File location using os.getcwd():", os.getcwd())
-
+demand(demandparams)
