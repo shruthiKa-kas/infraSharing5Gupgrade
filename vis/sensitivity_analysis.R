@@ -1,15 +1,12 @@
 library(ggplot2)
-#install.packages("tidyr")
 library(tidyr)
-#install.packages("plyr")
 library(plyr)
 library(dplyr)
-#install.packages("tidyverse")
 library(readr)
 library(tidyverse)
 library(sensemakr)
-#install.packages("devtools")
 library(devtools)
+
 folder <- dirname(rstudioapi::getSourceEditorContext()$path)
 data <- read_csv("Dataset_sensitivityanalysis.csv")
 data$Type <- factor(data$Type, 
@@ -22,14 +19,42 @@ data$Type <- factor(data$Type,
 glimpse(data)
 
 data$Scenario <- factor(data$Scenario,
-                        levels = c("4Minus60", "3Minus40", "2Minus20", "1Minus10", "zero", "1Plus10", "2Plus20", "3Plus40", "6Plus60" ),
-                        labels = c("Change -60%", "Change -40%", "Change -20%", "Change -10%", "Baseline", "Change +10%","Change +20%","Change +40%", "Change +60%"))
+                        levels = c("4Minus60",
+                                   "3Minus40", 
+                                   "2Minus20", 
+                                   "1Minus10", 
+                                   "zero", 
+                                   "1Plus10", 
+                                   "2Plus20", 
+                                   "3Plus40", 
+                                   "4Plus60" ),
+                        labels = c("Change -60%", 
+                                   "Change -40%", 
+                                   "Change -20%", 
+                                   "Change -10%", 
+                                   "Baseline", 
+                                   "Change +10%",
+                                   "Change +20%",
+                                   "Change +40%", 
+                                   "Change +60%"))
 data$category <- factor(data$category,
-                    levels = c("5Population", "6ARPU", "7Existing towers", "2OPEX",
-                                "3InfraUpgrade","9Spectrum","1Backhaul", "8DemandGrowth",
+                    levels = c("5Population",
+                               "6ARPU", 
+                               "7Existing towers", 
+                               "2OPEX",
+                               "3InfraUpgrade",
+                               "9Spectrum",
+                               "1Backhaul", 
+                               "8DemandGrowth",
                                "4Badloans"),
-                    labels = c("Population", "ARPU", "Existing Towers", "OPEX",
-                               "Infra Upgrade", "Spectrum","Backhaul", "Demand Growth", 
+                    labels = c("Population", 
+                               "ARPU", 
+                               "Existing Towers", 
+                               "OPEX",
+                               "Infra Upgrade", 
+                               "Spectrum",
+                               "Backhaul",
+                               "Demand Growth", 
                                "Debt Repayment"))
 glimpse(data)
 
