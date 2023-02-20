@@ -3,6 +3,12 @@
 
 # In[31]:
 
+"""
+Simulation run script for infraSharing5Gupgrade.
+Written by Shruthi K A & Ed Oughton.
+Jan 2023
+"""
+
 
 import math
 import numpy as np
@@ -16,8 +22,6 @@ params = {
     'cost_RAN_small_USD': 500,
     'cost_spectrum_700_USD': 0.28,
     'cost_spectrum_3800_USD': 0.03,
-    # 'existing_towers_SC': 10,
-    # 'existing_towers_MC': 4,
     'Core_cost_percentage':0.1,
     'OPEX_rental': 0.1,
     'backhaul_MC': 10000,
@@ -56,24 +60,16 @@ params = {
 
 def costEstimate(params):
     """
-    Existing site, backhaul exist, just enhance the capacity., small cell around the macro-cell.. say 2 km from base station
-    
+    Estimate the cost of different type of infrastructure sharing model
     """
     
-    # TCOPerYear = df['TCO'].to_numpy()
     population_density = int(params['population_density'])
-    # print(population_density)
     filename = "Overall_cellrequired_macro_small.csv"
-    my_path = os.path.join('results/Capacity', filename)
+    my_path = os.path.join('data/Capacity', filename)
     df = pd.read_csv(my_path)
-    # print(df)
     arr = df.to_numpy()
-    # print(arr[1,:])
     index = np.where(arr == population_density)
-    # print(index)
     [iteration, population_density, Number_of_MC_upgrade, Number_of_SC_deployed, overall_towers] = arr[1,:]
-    # print(Number_of_MC_upgrade)      
-    # print(Number_of_SC_deployed)
     cost_RAN_small_USD = float(params['cost_RAN_small_USD'])
     cost_spectrum_700_USD = float(params['cost_spectrum_700_USD'])
     cost_spectrum_3800_USD = float(params['cost_spectrum_3800_USD'])
@@ -96,9 +92,6 @@ def costEstimate(params):
     debt = float(params['debt'])
     opex_small = float(params['opex_small'])
     
-#     cost_RAN_small_USD,cost_spectrum_700_USD, cost_spectrum_3800_USD,existing_towers_SC,existing_towers_MC,core_cost_percentage,OPEX_rental,backhaul_MC, \
-#             backhaul_SC_m,tower,siteRental_rural_macro,siteRental_rural_small,carrier_aggregation,power_supply,control_units,iO_fronthaul,remote_radio_units,processing,population, \
-#             debt,opex_small = initialiseparameters(params)
     bandwidth_700Mhz = float(params['bandwidth_700Mhz']);
     bandwidth_3800MHz = float(params['bandwidth_3800MHz']);
     CAPEX_small = cost_RAN_small_USD;
@@ -112,49 +105,64 @@ def costEstimate(params):
     CAPEX_rateofChange = np.power((1+CAPEX_rateofChange),(year-2023))
     OPEX_rateofchange = np.power((1+OPEX_rateofchange),(year-2023))
     Badloans_rateofChange = np.power((1+Badloans_rateofChange),(year-2023))
-    # print(CAPEX_rateofChange)
-    #print(CAPEX_macro, CAPEX_small)
+
     OPEX_small = (opex_small+power_supply/4)*10;
     OPEX_macro = (OPEX_rental*CAPEX_macro+power_supply)*10 ;
-    #print(OPEX_macro, OPEX_small)
+
     Core = core_cost_percentage*(existing_towers_SC*(cost_RAN_small_USD) + existing_towers_MC*(carrier_aggregation+control_units+iO_fronthaul+remote_radio_units+processing))
     
-    # tripples = [('a', 'b', 'c'), ('d', 'e', 'f'), ('g', 'h', 'i'), ('j', 'k', 'm')]
-    # for tripple in tripples:
-    #     print(myfunction(*tripple))
     Type = np.array(['NS', 'PS', 'AS', 'NHN'])
     
     def eachCasecost(type):    
-        # output = []
-        # df1 = []
+
         if type == 'NS':
-            #4 operators scenario
-            t = 4; #number of towers upgrade
-            b = 4; #number of backhaul upgrade
-            s = 4; #number of spectrum upgrade
-            r = 4; #number of RAN upgrade
-            c = 4; #number of Core upgrade
+            '''#4 operators scenario'''
+            t = 4; 
+            '''#number of towers upgrade'''
+            b = 4; 
+            '''#number of backhaul upgrade'''
+            s = 4; 
+            '''#number of spectrum upgrade'''
+            r = 4; 
+            '''#number of RAN upgrade'''
+            c = 4; 
+            '''#number of Core upgrade'''
             strategy = np.array(['Solo','Solo','Solo','Solo','Solo','Solo','Solo','Solo','Solo','Solo'])
         elif type == 'PS':
-            t = 1; #number of towers upgrade
-            b = 1; #number of backhaul upgrade
-            s = 4; #number of spectrum upgrade
-            r = 4; #number of RAN upgrade
-            c = 4; #number of Core upgrade
+            t = 1; 
+            '''#number of towers upgrade'''
+            b = 1; 
+            '''#number of backhaul upgrade'''
+            s = 4; 
+            '''#number of spectrum upgrade'''
+            r = 4; 
+            '''#number of RAN upgrade'''
+            c = 4; 
+            '''#number of Core upgrade'''
             strategy = np.array(['Passive','Passive','Passive','Passive','Passive','Passive','Passive','Passive','Passive','Passive'])
         elif type == 'AS':
-            t = 1; #number of towers upgrade
-            b = 1; #number of backhaul upgrade
-            s = 2; #number of spectrum upgrade
-            r = 2; #number of RAN upgrade
-            c = 4; #number of Core upgrade
+            t = 1; 
+            '''#number of towers upgrade'''
+            b = 1; 
+            '''#number of backhaul upgrade'''
+            s = 2; 
+            '''#number of spectrum upgrade'''
+            r = 2; 
+            '''#number of RAN upgrade'''
+            c = 4; 
+            '''#number of Core upgrade'''
             strategy = np.array(['Active','Active','Active','Active','Active','Active','Active','Active','Active','Active'])
         elif type == 'NHN':
-            t = 1; #number of towers upgrade
-            b = 1; #number of backhaul upgrade
-            s = 1; #number of spectrum upgrade
-            r = 1; #number of RAN upgrade
-            c = 1; #number of Core upgrade
+            t = 1; 
+            '''#number of towers upgrade'''
+            b = 1; 
+            '''#number of backhaul upgrade'''
+            s = 1; 
+            '''#number of spectrum upgrade'''
+            r = 1; 
+            '''#number of RAN upgrade'''
+            c = 1; 
+            ''' #number of Core upgrade'''
             strategy = np.array(['NHN5G','NHN5G','NHN5G','NHN5G','NHN5G','NHN5G','NHN5G','NHN5G','NHN5G','NHN5G'])
         
         CAPEX = (((CAPEX_small)*existing_towers_SC*r + siteRental_rural_small*t +  bandwidth_3800MHz*cost_spectrum_3800_USD*population*s + backhaul_SC_m*1000*b) +                     ((CAPEX_macro)*existing_towers_MC*r+ siteRental_rural_macro*t +Core*c + bandwidth_700Mhz*cost_spectrum_700_USD*population*s + backhaul_MC*b))/10*CAPEX_rateofChange
@@ -166,22 +174,22 @@ def costEstimate(params):
 
         arr = np.stack((strategy,year,np.round(CAPEX), np.round(OPEX),np.round(Badloans),np.round(TCO_plus_badloans)), axis = 1)
         return arr
-        #return strategy,TCO
     
     for type in Type: 
-    # #"Solo", "Passive", "Active", "NHN5G"    
+        '''
+        Estimate cost for each type of sharing for the estimated number of macro upgraded and small cell deployment requied
+        "Solo", "Passive", "Active", "NHN5G"   
+        ''' 
         a = eachCasecost(type)
         filename = "cost_{}_{}_{}.csv".format(
             existing_towers_MC, 
             existing_towers_SC,
             type,
         )
-        # np.savetxt(filename, a,  fmt="%s", delimiter = ",")
-        # names = 
         output = pd.DataFrame(a,columns=['Scenario','Year','CAPEX','OPEX','Debt','TCO'])
-        if not os.path.exists('results/Cost'):
-            os.mkdir('results/Cost')
-        my_path = os.path.join('results/Cost', filename)
+        if not os.path.exists('data/Cost'):
+            os.mkdir('data/Cost')
+        my_path = os.path.join('data/Cost', filename)
         output.to_csv(my_path)
 
 costEstimate(params)
