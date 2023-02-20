@@ -62,6 +62,13 @@ def demand(demandparams):
 
     output = []
     for rural_pop_density in range(18,300,18):
+        """
+        This for loop stimates the minimum data rate per user required during peak hours.
+        
+        output
+            minimum_speed_required_users_Mbps_perkm2 (float): minimum speed per user during peak hours for varying population density.
+        """
+        
         total_population = area_covered_km2*rural_pop_density;
         total_users = total_population*takeuprate;
         minimum_speed_required_users_Mbps_perkm2 = minimumMbps_peruser_Mbps*total_users/area_covered_km2;
