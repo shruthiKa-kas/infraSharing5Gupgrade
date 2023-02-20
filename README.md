@@ -52,4 +52,4 @@ To obtain model results, simply execute each script sequentially. The obtained r
 Contact
 =======
 
-For additional queries or comments, please reach out to 'k.a.shruthi@strath.ac.uk' for further information.
+For additional queries or comments, please reach out to 'k.a.shruthi@strath.ac.uk' and 'eoughton@gmu.edu' for further information.
