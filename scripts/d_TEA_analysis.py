@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[5]:
-
+"""
+Simulation run script for infraSharing5Gupgrade.
+Written by Shruthi K A & Ed Oughton.
+Jan 2023
+"""
 
 import math
 import numpy as np
