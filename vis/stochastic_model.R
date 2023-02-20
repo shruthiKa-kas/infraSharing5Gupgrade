@@ -9,7 +9,7 @@ full_tables <- file.path(folder, 'data', 'stochastic')
 
 #get a list of all files in the folder ending in .csv
 myfiles = list.files(path=full_tables, pattern="*.csv", full.names=TRUE)
-#glimpse(myfiles)
+
 #import data for all files in file list
 data = ldply(myfiles, read_csv)
 
