@@ -3,7 +3,7 @@ Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural
 
 This codebase evaluates the cost implications of different infrastructure sharing business models in rural areas, especially using 5G, as applied for a generic model.
 
-If there are any additional queries or comments about the code, do not hesitate to reach out to me via email at 'k [dot] a [dot] shruthi [at] strath [dot] ac [dot] uk' for further information.
+If there are any additional queries or comments about the code, do not hesitate to reach out to me via email at 'k.a.shruthi@strath.ac.uk' for further information.
 
 Please cite the published paper associated with this codebase:
 
