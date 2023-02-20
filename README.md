@@ -1,19 +1,21 @@
 Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural Areas 
 ====
 
-This codebase evaluates the cost implications of different infrastructure sharing business models in rural areas.
+Evaluating the cost implications of infrastructure sharing business models in rural areas.
+
+The research in these paper explores future infrastructure sharing strategies for rural areas, predicated on the notion that most locations already have at least some existing infrastructure assets providing basic connectivity (for example, 2G, 3G, or 4G). The key contribution is the estimation of quantitative viability metrics and sensitivity analysis for four different infrastructure sharing strategies to address the digital divide, especially in rural and remote areas. 
 
 Please cite the published paper associated with this codebase:
 
 Citation
 ---------
 
-- Koratagere Anantha Kumar, S. and Oughton, E., 2022. Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural Areas.(https://www.techrxiv.org/articles/preprint/Techno-Economic_Assessment_of_5G_Infrastructure_Sharing_Business_Models_in_Rural_Areas/21258531/1/files/37740480.pdf)
+- Koratagere Anantha Kumar, S. and Oughton, E., 2022. Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural Areas.(doi:https://dx.doi.org/10.36227/techrxiv.21258531.v1)
 
 
 Method
 ======
-A box diagram of the method is shown below, illustrating the open-source techno-economic 5G simulation model which takes advantage of traffic modelling.
+A box diagram of the method is shown below, illustrating the open-source techno-economic 5G simulation model which takes advantage of traffic modelling. The techno-economic modeling framework used in this study for understanding the business case feasibility of 5G rural upgrades via different infrastructure sharing business models.
 
 <p align="center">
   <img src="/figures/method.png" />
@@ -21,7 +23,7 @@ A box diagram of the method is shown below, illustrating the open-source techno-
 
 Example Results
 ===============
-The results shows the NPV for a revenue variation scenario
+The results shows the NPV for a revenue variation scenario over 10 years in the rural brownfield deployment scenario.
 <p align="center">
   <img src="/figures/results.png" />
 </p>
@@ -51,4 +53,3 @@ Contact
 =======
 
 For additional queries or comments, please reach out to 'k.a.shruthi@strath.ac.uk' for further information.
-
