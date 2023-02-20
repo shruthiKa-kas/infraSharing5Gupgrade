@@ -1,13 +1,9 @@
 library(readr)
-# install.packages("dplyr")
 library(dplyr)
-# install.packages("ggplot2")
 library(ggplot2)
 
-# # install.packages("devtools")
 folder <- dirname(rstudioapi::getSourceEditorContext()$path)
 
-#data <-  read_csv("NPV_Upgrade_12Aug.csv")
 data <-  read_csv("NPV_Upgrade_Dataset7Nov.csv")
 data$Type <- factor(data$Type, 
                     levels=c("NPV2ARPU","NPV10ARPU", "NPV20ARPU", "NPV30ARPU", 
@@ -24,8 +20,26 @@ data$Scenario <- factor(data$Scenario,
 )
 
 data$Year <- factor(data$Year, 
-                    levels=c(2023,2024,2025,2026,2027,2028,2029,2030,2031,2032),
-                    labels=c(2023,2024,2025,2026,2027,2028,2029,2030,2031,2032)
+                    levels=c(2023,
+                             2024,
+                             2025,
+                             2026,
+                             2027,
+                             2028,
+                             2029,
+                             2030,
+                             2031,
+                             2032),
+                    labels=c(2023,
+                             2024,
+                             2025,
+                             2026,
+                             2027,
+                             2028,
+                             2029,
+                             2030,
+                             2031,
+                             2032)
 )
 colnames(data)[3] <- "Strategy"
 glimpse(data)
@@ -55,39 +69,3 @@ tiff(path, units="in", width=8, height=5, res=300) #set up the .tiff in terms of
 png(path, units="in", width=8, height=5, res=300)
 print(fig) #print the figigure to the .tiff
 dev.off() #end the operation
-
-
-# 
-#   install.packages('sensemakr')
-#   library('sensemakr')
-# 
-#   data("darfur")
-#   View(darfur)
-#   # runs regression model
-#   model <- lm(peacefactor ~ directlyharmed + age + farmer_dar + herder_dar +
-#                 pastvoted + hhsize_darfur + female + village, data = darfur)
-#   
-#   # runs sensemakr for sensitivity analysis
-#   sensitivity <- sensemakr(model, treatment = "directlyharmed",
-#                            benchmark_covariates = "female",
-#                            kd = 1:3)
-#   # short description of results
-#   sensitivity
-#   
-#   # long description of results
-#   summary(sensitivity)
-#   
-#   # plot bias contour of point estimate
-#   plot(sensitivity)
-#   
-#   # plot bias contour of t-value
-#   plot(sensitivity, sensitivity.of = "t-value")
-#   
-#   
-#   # plot extreme scenario
-#   plot(sensitivity, type = "extreme")
-#   
-#   # latex code for sensitivity table
-#   ovb_minimal_reporting(sensitivity)
-#   
-#   
