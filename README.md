@@ -1,9 +1,7 @@
-Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural Areas and Infrastructure Sharing Strategies for Wireless Broadband (infrasharing5Gupgrade)
+Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural Areas 
 ====
 
-This codebase evaluates the cost implications of different infrastructure sharing business models in rural areas, especially using 5G, as applied for a generic model.
-
-If there are any additional queries or comments about the code, do not hesitate to reach out to me via email at 'k.a.shruthi@strath.ac.uk' for further information.
+This codebase evaluates the cost implications of different infrastructure sharing business models in rural areas.
 
 Please cite the published paper associated with this codebase:
 
@@ -23,7 +21,7 @@ A box diagram of the method is shown below, illustrating the open-source techno-
 
 Example Results
 ===============
-A visualization of the cost per smartphone connected is shown below for 4G and 5G universal broadband strategies, demonstrating the type of results the codebase can produce.
+A visualization of the cost per smartphone connected is shown below for 5G universal broadband strategies, demonstrating the type of results the codebase can produce.
 <p align="center">
   <img src="/figures/results.png" />
 </p>
@@ -47,4 +45,10 @@ Activate it (run this each time you switch projects):
 Using the model
 ===============
 
-To obtain model results, simply execute the each script sequentially. The obtained results can be plotted on R using the code in "vis" folder.
+To obtain model results, simply execute each script sequentially. The obtained results can be plotted on R using the code in "vis" folder.
+
+Contact
+=======
+
+For additional queries or comments, please reach out to 'k.a.shruthi@strath.ac.uk' for further information.
+
