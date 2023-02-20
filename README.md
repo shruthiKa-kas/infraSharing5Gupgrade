@@ -3,7 +3,7 @@ Techno-Economic Assessment of 5G Infrastructure Sharing Business Models in Rural
 
 Evaluating the cost implications of infrastructure sharing business models in rural areas.
 
-The research in these paper explores future infrastructure sharing strategies for rural areas, predicated on the notion that most locations already have at least some existing infrastructure assets providing basic connectivity (for example, 2G, 3G, or 4G). The key contribution is the estimation of quantitative viability metrics and sensitivity analysis for four different infrastructure sharing strategies to address the digital divide, especially in rural and remote areas. 
+The research in these paper explores future infrastructure sharing strategies, especially for rural areas, predicated on the notion that most locations already have at least some existing infrastructure assets providing basic connectivity (for example, 2G, 3G, or 4G). The key contribution is the estimation of quantitative viability metrics and sensitivity analysis for four different infrastructure sharing strategies to address the digital divide, especially in rural and remote areas. 
 
 Please cite the published paper associated with this codebase:
 
