@@ -59,9 +59,7 @@ fig = ggplot(data, aes(x=Year, y=Cost/1e6, group=Strategy)) +
          color = guide_legend(reverse = TRUE), 
          size = guide_legend(reverse = TRUE)) +
   facet_wrap(~Scenario,  ncol = 2)  +theme(text=element_text(family="Times",size=12))
-fig
-##create folder
-#create folder
+
 dir.create(file.path(folder, 'figures'), showWarnings = FALSE) #creates a folder called figures if it doesn't already exist
 path = file.path(folder, 'figures', 'decile_panel_NPV.tiff') #set the path to export the image to
 path = file.path(folder, 'figures', 'decile_panel_NPV.png') #set the path to export the image to
