@@ -1,17 +1,11 @@
 library(ggplot2)
-#install.packages("tidyr")
 library(tidyr)
-#install.packages("plyr")
 library(plyr)
 library(dplyr)
-#install.packages("tidyverse")
 library(readr)
 library(tidyverse)
-#library(sensemakr)
-#install.packages("devtools")
 library(devtools)
 
-#install.packages("devtools")
 folder <- c("/cloud/project")
 data <- read_csv("CombinedCost11Sept.csv")
 data$Type <- factor(data$Type, 
@@ -27,8 +21,26 @@ data$Scenario <- factor(data$Scenario,
 )
 glimpse(data)
 data$Year <- factor(data$Year, 
-                    levels=c(2023,2024,2025,2026,2027,2028,2029,2030,2031,2032),
-                    labels=c(2023,2024,2025,2026,2027,2028,2029,2030,2031,2032)
+                    levels=c(2023,
+                             2024,
+                             2025,
+                             2026,
+                             2027,
+                             2028,
+                             2029,
+                             2030,
+                             2031,
+                             2032),
+                    labels=c(2023,
+                             2024,
+                             2025,
+                             2026,
+                             2027,
+                             2028,
+                             2029,
+                             2030,
+                             2031,
+                             2032)
 )
 glimpse(data)
 totals <- data %>%
