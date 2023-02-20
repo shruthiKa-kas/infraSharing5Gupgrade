@@ -48,10 +48,16 @@ def demand(demandparams):
     area_covered_km2 = float(demandparams['area_covered'])
     
     
-    MBperDay_MB = demandperMonth_GB*math.pow(10,3)/12;
-    busisest_hour = 0.15; #overhead booking factor 
-    MBperBusyHour_MBphour = MBperDay_MB*busisest_hour;
-    minimumMbps_peruser_Mbps = MBperBusyHour_MBphour*8/3600; #1 byte = 8 bits and 1 hour = 3600 seconds
+    MBperDay_MB = demandperMonth_GB*math.pow(10,3) / 12;
+    '''
+    overhead booking factor 
+    '''
+    busisest_hour = 0.15; 
+    MBperBusyHour_MBphour = MBperDay_MB * busisest_hour;
+    minimumMbps_peruser_Mbps = MBperBusyHour_MBphour * 8/ 3600; 
+    '''
+    1 byte = 8 bits and 1 hour = 3600 seconds
+    '''
     minimumMbps_peruser_Mbps = round(minimumMbps_peruser_Mbps,2)
 
     
