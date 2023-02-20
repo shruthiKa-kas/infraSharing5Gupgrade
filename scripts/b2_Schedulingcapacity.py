@@ -16,6 +16,12 @@ import pandas as pd
 import random
 import os
 
+'''
+This module perfroms the user scheduling and network traffic modelling to assess
+whether the estimated uprgade would meet the data rate requirements and future
+network demand
+'''
+
 
 SchedulePramas = {
     'demand_gb_month': 50,  
@@ -66,12 +72,25 @@ def initialparamters(SchedulePramas):
     '''number of users using 5G (50% of overall users)'''
     users_future_5G = pentration_5G*users_future
     
-    return users,users_future_5G,users_future,x,fc_MHz,MinSpeedPerUser,population_desnity,total_population,Bandwidth_MHz,FrequencySpacing_KHz,area_covered
+    return (
+        users,
+        users_future_5G,
+        users_future,
+        x,
+        fc_MHz,
+        MinSpeedPerUser,
+        population_desnity,
+        total_population,
+        Bandwidth_MHz,
+        FrequencySpacing_KHz,
+        area_covered
+        )
     
     
 def trafficpredictions():
     '''
-    Estimate the number of sites for upgrade considering the future traffic at the given population density.
+    Estimate the number of sites for upgrade considering the future traffic at
+    the given population density.
     '''
     
     [users,users_future_5G,users_future,x,fc_MHz,MinSpeedPerUser,population_desnity,total_population,Bandwidth_MHz,FrequencySpacing_KHz,area_covered] = initialparamters(SchedulePramas)
@@ -101,7 +120,8 @@ def trafficpredictions():
     current_number_of_sites = np.round(current_number_of_sites+1)
     
     '''
-    estimate the number of sites for upgrade considering the future traffic at the given population density
+    estimate the number of sites for upgrade considering the future traffic at 
+    the given population density
     '''
     number_of_sites = total_traffic_offered_Mbps/gNodeB_capacity
     number_of_sites = np.round_(number_of_sites+1)
@@ -143,8 +163,9 @@ def trafficpredictions():
     my_path = os.path.join('data/Capacity', filename)
     df1 = pd.read_csv(my_path)
     cell_radius_m = df1['cell_radius_m'].to_numpy()
-    area_per_cell = 1.95*2.6*math.pow(cell_radius_m/1000,2)
-    TotalCellSite_for_upgrade_capacity = area_covered/area_per_cell
+    
+    area_per_cell = 1.95 * 2.6 * math.pow(cell_radius_m/1000,2)
+    TotalCellSite_for_upgrade_capacity = area_covered / area_per_cell
     TotalCellSite_for_upgrade_capacity = np.round_(TotalCellSite_for_upgrade_capacity+1)
     
     '''
@@ -160,7 +181,8 @@ def trafficpredictions():
 
 def towersSufficient(overall_towers,SchedulePramas):
     '''
-    check whether the estimate towers can support the expected network traffic or not at each site at the expected data rates
+    check whether the estimate towers can support the expected network traffic
+    or not at each site at the expected data rates
     '''
     [users,users_future_5G,users_future,x,fc_MHz,MinSpeedPerUser,population_desnity,total_population,Bandwidth_MHz,FrequencySpacing_KHz,area_covered] = initialparamters(SchedulePramas)
     users_per_tower = users_future_5G/overall_towers
