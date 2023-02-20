@@ -12,7 +12,7 @@ data$User_behavior <- factor(data$User_behavior,
                     levels=c("short_user", "mid_user","long_user"),
                     labels=c('Short User (20 sec)', 'Mid User (60 sec)', 'Long User (300 sec)')
 )
-#data <- data %>% rename("User_behavior" = "User_behavior")
+
 colnames(data)[2] <- "Behavior"
 glimpse(data)
 
