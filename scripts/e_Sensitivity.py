@@ -3,6 +3,12 @@
 
 # In[12]:
 
+"""
+Simulation run script for infraSharing5Gupgrade.
+Written by Shruthi K A & Ed Oughton.
+Jan 2023
+"""
+
 
 import math
 import numpy as np
