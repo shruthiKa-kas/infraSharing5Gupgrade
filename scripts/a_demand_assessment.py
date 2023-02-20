@@ -25,10 +25,14 @@ Demandparams = {
 
 
 def demand(Demandparams):
-#     """
-#     This function estimates the minimum data rate per user required during peak hours to keep the QoE (quality of experience) per user higher.
+"""
+This function estimates the minimum data rate per user required during peak hours to keep the QoE (quality of experience) per user higher. 
+Data traffic demand is estimated by determining market share, anticipated smartphone users or other business subscribers, population distribution,
+active users exchanging traffic at peak times, the amount of traffic per user and the amount of traffic per site.
+
+
     
-#     """
+"""
     DemandperMonth_GB = float(Demandparams['demand_gb_month'])
     #print(DemandperMonth_GB)
     takeuprate = float(Demandparams['adoption_rate_perc'])
