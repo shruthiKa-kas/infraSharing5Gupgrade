@@ -36,21 +36,13 @@ Using conda
 The recommended installation method is to use conda, which handles packages and virtual
 environments, along with the conda-forge channel which has a host of pre-built libraries and packages.
 
-Create a conda environment called `india5G`:
+Create a conda environment called `infrashare5G`:
 
-    conda create --name india5g python=3.9
+    conda create --name infrashare5G python=3.9
 
 Activate it (run this each time you switch projects):
 
-    conda activate infra5G
-
-Install `india5G`:
-
-    python setup.py install
-
-Alternatively, for development purposes, clone this repo and run:
-
-    python setup.py develop
+    conda activate infrashare5G
 
 
 
