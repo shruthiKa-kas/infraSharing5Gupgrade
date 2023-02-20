@@ -93,7 +93,18 @@ def trafficpredictions():
     the given population density.
     '''
     
-    [users,users_future_5G,users_future,x,fc_MHz,MinSpeedPerUser,population_desnity,total_population,Bandwidth_MHz,FrequencySpacing_KHz,area_covered] = initialparamters(SchedulePramas)
+    [users,
+     users_future_5G,
+     users_future,
+     x,
+     fc_MHz,
+     MinSpeedPerUser,
+     population_desnity,
+     total_population,
+     Bandwidth_MHz,
+     FrequencySpacing_KHz,
+     area_covered] = initialparamters(SchedulePramas)
+    
     if fc_MHz == 700:
         Current_total_traffic_offered_Mbps = users*MinSpeedPerUser
     elif fc_MHz == 3800:
@@ -184,7 +195,18 @@ def towersSufficient(overall_towers,SchedulePramas):
     check whether the estimate towers can support the expected network traffic
     or not at each site at the expected data rates
     '''
-    [users,users_future_5G,users_future,x,fc_MHz,MinSpeedPerUser,population_desnity,total_population,Bandwidth_MHz,FrequencySpacing_KHz,area_covered] = initialparamters(SchedulePramas)
+    [users,
+     users_future_5G,
+     users_future,
+     x,
+     fc_MHz,
+     MinSpeedPerUser,
+     population_desnity,
+     total_population,
+     Bandwidth_MHz,
+     FrequencySpacing_KHz,
+     area_covered] = initialparamters(SchedulePramas)
+    
     users_per_tower = users_future_5G/overall_towers
     users_per_sector =  users_per_tower/3
     avg_active_subscribers = 0.25*users_per_sector
@@ -236,14 +258,18 @@ def dataScheduling():
 
     df_subs = pd.DataFrame(subscribers, columns=['Subscribers'])
 
-    df_subs['Short_User'] = df_subs['Subscribers']*[short_user_duration]*[dl_act_factor +
-                                                                                   ul_act_factor]*[mo_avgrrcuser_nbh+mt_avgrrcuser_nbh]*[sch_periodicity_frame]*[1+bler]
-    df_subs['Mid_User'] = df_subs['Subscribers']*[mid_user_duration]*[dl_act_factor +
-                                                                               ul_act_factor]*[mo_avgrrcuser_nbh+mt_avgrrcuser_nbh]*[sch_periodicity_frame]*[1+bler]
-    df_subs['Long_User'] = df_subs['Subscribers']*[long_user_duration]*[dl_act_factor +
-                                                                                  ul_act_factor]*[mo_avgrrcuser_nbh+mt_avgrrcuser_nbh]*[sch_periodicity_frame]*[1+bler]
-
+    df_subs['Short_User'] = df_subs['Subscribers'] * [short_user_duration] \
+    * [dl_act_factor + ul_act_factor] * [mo_avgrrcuser_nbh
+        + mt_avgrrcuser_nbh] * [sch_periodicity_frame] * [1 + bler]
+    df_subs['Mid_User'] = df_subs['Subscribers'] * [mid_user_duration] \
+    * [dl_act_factor + ul_act_factor] * [mo_avgrrcuser_nbh
+        + mt_avgrrcuser_nbh] * [sch_periodicity_frame] * [1 + bler]
+    df_subs['Long_User'] = df_subs['Subscribers'] * [long_user_duration] \
+    * [dl_act_factor + ul_act_factor] * [mo_avgrrcuser_nbh
+        + mt_avgrrcuser_nbh] * [sch_periodicity_frame] * [1 + bler]
+    
     output = pd.DataFrame(df_subs)
+    
     filename = "scheduling_calculator_{}.csv".format(
             type,
         )
@@ -287,10 +313,16 @@ def voicescheduling():
 
     df_subs = pd.DataFrame(subscribers, columns=['Subscribers'])
 
-    df_subs['Short User (20 Sec)'] = df_subs['Subscribers']*[short_user_duration]*[voice_act_factor]*[mo_call_nbh+mt_call_nbh]*[voice_periodicity_frame]*[1+bler]
-    df_subs['Mid User (60 Sec)'] = df_subs['Subscribers']*[mid_user_duration]*[voice_act_factor]*[mo_call_nbh+mt_call_nbh]*[voice_periodicity_frame]*[1+bler]
-    df_subs['Long User (300 Sec)'] = df_subs['Subscribers']*[long_user_duration]*[voice_act_factor]*[mo_call_nbh+mt_call_nbh]*[voice_periodicity_frame]*[1+bler]
-    
+    df_subs['Short User (20 Sec)'] = df_subs['Subscribers'] \
+    * [short_user_duration] * [voice_act_factor] * [mo_call_nbh
+        + mt_call_nbh] * [voice_periodicity_frame] * [1 + bler]
+    df_subs['Mid User (60 Sec)'] = df_subs['Subscribers'] \
+    * [mid_user_duration] * [voice_act_factor] * [mo_call_nbh
+        + mt_call_nbh] * [voice_periodicity_frame] * [1 + bler]
+    df_subs['Long User (300 Sec)'] = df_subs['Subscribers'] \
+    * [long_user_duration] * [voice_act_factor] * [mo_call_nbh
+        + mt_call_nbh] * [voice_periodicity_frame] * [1 + bler]
+
     output = pd.DataFrame(df_subs)
     filename = "scheduling_calculator_{}.csv".format(
             type,
@@ -299,10 +331,7 @@ def voicescheduling():
         os.mkdir('data/Capacity')
     my_path = os.path.join('data/Capacity', filename)
     output.to_csv(my_path, index=False) 
-    
-    
-
-    
+      
 
 '''
 Main function 
@@ -315,23 +344,26 @@ TotalCellSite_for_upgrade_capacity1 = []
 TotalCellSite_for_upgrade_capacity2 = []
 for a in a:
     if a == 0:
-        [TotalCellSite_for_upgrade1, population_desnity] = trafficpredictions()
+        [TotalCellSite_for_upgrade1, population_desnity] = \
+            trafficpredictions()
     if a == 1:
         SchedulePramas['Frequency_MHz'] = 3800
-        SchedulePramas['Bandwidth_MHz'] = 100        
-        [TotalCellSite_for_upgrade2, population_desnity] = trafficpredictions()
-        overall_towers = np.add(TotalCellSite_for_upgrade1,TotalCellSite_for_upgrade2)
-        print(overall_towers)
-    
+        SchedulePramas['Bandwidth_MHz'] = 100
+        [TotalCellSite_for_upgrade2, population_desnity] = \
+            trafficpredictions()
+        overall_towers = np.add(TotalCellSite_for_upgrade1,
+                                TotalCellSite_for_upgrade2)
+
         x = len(population_desnity)
         x = np.arange(x)
 
-        output = pd.DataFrame(population_desnity, columns=['population_desnity'])    
+        output = pd.DataFrame(population_desnity,
+                              columns=['population_desnity'])
         output['Number_of_macro_cells'] = TotalCellSite_for_upgrade1
         output['Number_of_small_cells'] = TotalCellSite_for_upgrade2
         output['overall_towers'] = overall_towers
 
-        filename = "Overall_cellrequired_macro_small.csv"
+        filename = 'Overall_cellrequired_macro_small.csv'
 
         output = pd.DataFrame(output)
 
@@ -340,8 +372,7 @@ for a in a:
         my_path = os.path.join('data/Capacity', filename)
         output.to_csv(my_path)
 
-
-towersSufficient(overall_towers,SchedulePramas)
+towersSufficient(overall_towers, SchedulePramas)
 
 voicescheduling()
 dataScheduling()
